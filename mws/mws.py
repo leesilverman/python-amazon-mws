@@ -653,3 +653,46 @@ class Recommendations(MWS):
         data = dict(Action="ListRecommendationsByNextToken",
                     NextToken=token)
         return self.make_request(data, "POST")
+
+class Finances(MWS):
+
+    """ Amazon MWS Finances API inserted by Lee """
+
+    URI = '/Finances/2015-05-01'
+    VERSION = '2015-05-01'
+    NS = "{https://mws.amazonservices.com/Finances/2015-05-01}"
+
+    def list_financial_events(self, amazonorderid=None, financialeventgroupid=None, postedafter=None, postedbefore=None,
+                    max_results='100'):
+
+        data = dict(Action='ListFinancialEvents',
+                    AmazonOrderId=amazonorderid,
+                    FinancialEventGroupId=financialeventgroupid,
+                    PostedAfter=postedafter,
+                    PostedBefore=postedbefore,
+                    MaxResultsPerPage=max_results
+                    )
+        return self.make_request(data)
+
+    def list_financial_events_by_next_token(self, token):
+        data = dict(Action='ListFinancialEventsByNextToken', NextToken=token)
+        return self.make_request(data)
+
+
+    def list_financial_event_groups(self, financialeventgroupstartedafter=None, financialeventgroupstartedbefore=None,
+                    max_results='100'):
+
+        data = dict(Action='ListFinancialEventGroups',
+                    FinancialEventGroupStartedAfter=financialeventgroupstartedafter,
+                    FinancialEventGroupStartedBefore=financialeventgroupstartedbefore,
+                    MaxResultsPerPage=max_results
+                    )
+        return self.make_request(data)
+
+    def list_financial_event_groups_by_next_token(self, token):
+        data = dict(Action='ListFinancialEventGroupsByNextToken', NextToken=token)
+        return self.make_request(data)
+
+    def get_service_status(self):
+        data = dict(Action='GetServiceStatus')
+        return self.make_request(data)
